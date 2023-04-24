@@ -187,6 +187,7 @@ M.on_attach = function(client, bufnr)
     }
   end
 
+  -- Read Get Declaration
   if capabilities.declarationProvider then
     lsp_mappings.n["gD"] = {
       function() vim.lsp.buf.declaration() end,
@@ -194,6 +195,7 @@ M.on_attach = function(client, bufnr)
     }
   end
 
+  -- Read Get Definition
   if capabilities.definitionProvider then
     lsp_mappings.n["gd"] = {
       function() vim.lsp.buf.definition() end,
@@ -268,6 +270,7 @@ M.on_attach = function(client, bufnr)
     })
   end
 
+  -- Read Knowledge
   if capabilities.hoverProvider then
     lsp_mappings.n["K"] = {
       function() vim.lsp.buf.hover() end,
@@ -275,13 +278,15 @@ M.on_attach = function(client, bufnr)
     }
   end
 
+  -- Read Get Implementation
   if capabilities.implementationProvider then
-    lsp_mappings.n["gI"] = {
+    lsp_mappings.n["gi"] = {
       function() vim.lsp.buf.implementation() end,
       desc = "Implementation of current symbol",
     }
   end
 
+  -- Read Get References
   if capabilities.referencesProvider then
     lsp_mappings.n["gr"] = {
       function() vim.lsp.buf.references() end,
@@ -311,6 +316,46 @@ M.on_attach = function(client, bufnr)
     lsp_mappings.n["gT"] = {
       function() vim.lsp.buf.type_definition() end,
       desc = "Definition of current type",
+    }
+  end
+
+  -- Read Get Help
+  if capabilities.typeDefinitionProvider then
+    lsp_mappings.n["gh"] = {
+      function() vim.lsp.buf.signature_help() end,
+      desc = "Help for current type",
+    }
+  end
+
+  -- Read Vim WorkSpace
+  if capabilities.typeDefinitionProvider then
+    lsp_mappings.n["<leader>vws"] = {
+      function() vim.lsp.buf.workspace_symbol() end,
+      desc = "Workspace Symbol",
+    }
+  end
+
+  -- Read Vim OpenFloat
+  if capabilities.typeDefinitionProvider then
+    lsp_mappings.n["<leader>vof"] = {
+      function() vim.lsp.buf.open_float() end,
+      desc = "Open Float",
+    }
+  end
+
+  -- Read Vim ReName
+  if capabilities.typeDefinitionProvider then
+    lsp_mappings.n["<leader>vrn"] = {
+      function() vim.lsp.buf.rename() end,
+      desc = "Rename Current Symbol",
+    }
+  end
+
+  -- Read Vim RefeRences
+  if capabilities.typeDefinitionProvider then
+    lsp_mappings.n["<leader>vrr"] = {
+      function() vim.lsp.buf.references() end,
+      desc = "Rename Current Symbol",
     }
   end
 

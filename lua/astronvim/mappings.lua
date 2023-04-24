@@ -29,10 +29,38 @@ maps.n["gx"] = { utils.system_open, desc = "Open the file under cursor with syst
 maps.n["<C-s>"] = { "<cmd>w!<cr>", desc = "Force write" }
 maps.n["<C-q>"] = { "<cmd>q!<cr>", desc = "Force quit" }
 maps.n["|"] = { "<cmd>vsplit<cr>", desc = "Vertical Split" }
-maps.n["\\"] = { "<cmd>split<cr>", desc = "Horizontal Split" }
+
+-- Personal remappings
+-- Move selected text up and down with J and K
+maps.v["J"] = { ":m '>+1<CR>gv=gv" }
+maps.v["K"] = { ":m '<-2<CR>gv=gv" }
+
+-- Keep search find centered
+maps.n["J"] = { "mzJ`z" }
+maps.n["<C-d>"] = { "<C-d>zz" }
+maps.n["<C-u>"] = { "<C-u>zz" }
+maps.n["n"] = { "nzzzv" }
+maps.n["N"] = { "Nzzzv" }
+
+-- Send pasted over text to the void buffer
+maps.v["<leader>p"] = { [["_dP]] }
+maps.t["<leader>p"] = { [["_dP]] }
+
+-- Send yanked text to clipboard
+maps.n["<leader>y"] = { [["+y]] }
+maps.v["<leader>y"] = { [["+y]] }
+maps.n["<leader>Y"] = { [["+Y]] }
+
+maps.n["<leader>d"] = { [["_d"]] }
+maps.v["<leader>d"] = { [["_d"]] }
+
+maps.n["<C-k>"] = { "<cmd>cnext<CR>zz" }
+maps.n["<C-j>"] = { "<cmd>cprev<CR>zz" }
+maps.n["<leader>k"] = { "<cmd>lnext<CR>zz" }
+maps.n["<leader>j"] = { "<cmd>lprev<CR>zz" }
 
 -- Plugin Manager
-maps.n["<leader>p"] = sections.p
+-- maps.n["<leader>p"] = sections.p
 maps.n["<leader>pi"] = { function() require("lazy").install() end, desc = "Plugins Install" }
 maps.n["<leader>ps"] = { function() require("lazy").home() end, desc = "Plugins Status" }
 maps.n["<leader>pS"] = { function() require("lazy").sync() end, desc = "Plugins Sync" }
@@ -148,15 +176,15 @@ if is_available "gitsigns.nvim" then
   maps.n["<leader>g"] = sections.g
   maps.n["]g"] = { function() require("gitsigns").next_hunk() end, desc = "Next Git hunk" }
   maps.n["[g"] = { function() require("gitsigns").prev_hunk() end, desc = "Previous Git hunk" }
-  maps.n["<leader>gl"] = { function() require("gitsigns").blame_line() end, desc = "View Git blame" }
-  maps.n["<leader>gL"] = { function() require("gitsigns").blame_line { full = true } end, desc = "View full Git blame" }
-  maps.n["<leader>gp"] = { function() require("gitsigns").preview_hunk() end, desc = "Preview Git hunk" }
-  maps.n["<leader>gh"] = { function() require("gitsigns").reset_hunk() end, desc = "Reset Git hunk" }
-  maps.n["<leader>gr"] = { function() require("gitsigns").reset_buffer() end, desc = "Reset Git buffer" }
-  maps.n["<leader>gs"] = { function() require("gitsigns").stage_hunk() end, desc = "Stage Git hunk" }
-  maps.n["<leader>gS"] = { function() require("gitsigns").stage_buffer() end, desc = "Stage Git buffer" }
-  maps.n["<leader>gu"] = { function() require("gitsigns").undo_stage_hunk() end, desc = "Unstage Git hunk" }
-  maps.n["<leader>gd"] = { function() require("gitsigns").diffthis() end, desc = "View Git diff" }
+  -- maps.n["<leader>gl"] = { function() require("gitsigns").blame_line() end, desc = "View Git blame" }
+  -- maps.n["<leader>gL"] = { function() require("gitsigns").blame_line { full = true } end, desc = "View full Git blame" }
+  -- maps.n["<leader>gp"] = { function() require("gitsigns").preview_hunk() end, desc = "Preview Git hunk" }
+  -- maps.n["<leader>gh"] = { function() require("gitsigns").reset_hunk() end, desc = "Reset Git hunk" }
+  -- maps.n["<leader>gr"] = { function() require("gitsigns").reset_buffer() end, desc = "Reset Git buffer" }
+  -- maps.n["<leader>gs"] = { function() require("gitsigns").stage_hunk() end, desc = "Stage Git hunk" }
+  -- maps.n["<leader>gS"] = { function() require("gitsigns").stage_buffer() end, desc = "Stage Git buffer" }
+  -- maps.n["<leader>gu"] = { function() require("gitsigns").undo_stage_hunk() end, desc = "Unstage Git hunk" }
+  -- maps.n["<leader>gd"] = { function() require("gitsigns").diffthis() end, desc = "View Git diff" }
 end
 
 -- NeoTree
@@ -281,6 +309,7 @@ if is_available "telescope.nvim" then
   maps.n["<leader>ft"] =
     { function() require("telescope.builtin").colorscheme { enable_preview = true } end, desc = "Find themes" }
   maps.n["<leader>fw"] = { function() require("telescope.builtin").live_grep() end, desc = "Find words" }
+  maps.n["<leader>fg"] = { function() require("telescope.builtin").live_grep() end, desc = "Find words" }
   maps.n["<leader>fW"] = {
     function()
       require("telescope.builtin").live_grep {
